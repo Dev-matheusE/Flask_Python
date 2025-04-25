@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar/Excluir Usuário</title>
+     <style>
+        /* Cole o Script CSS Modificado aqui */
+        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+        h1, h2 { color: #333; text-align: center; }
+        form { margin: 20px auto; padding: 15px; border: 1px solid #ccc; border-radius: 5px; width: 100%; max-width: 400px; box-sizing: border-box; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .delete-button { background-color: #d9534f; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px;}
+        .delete-button:hover { background-color: #c9302c; }
+        .back-link { display: inline-block; margin-top: 15px; color: #333; text-decoration: none; margin-right: 10px;}
+        .back-link:hover { text-decoration: underline; }
+        .flashes { list-style: none; padding: 0; margin: 10px 0; }
+        .flashes li { padding: 10px; margin-bottom: 5px; border-radius: 4px; }
+        .flashes li.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flashes li.warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .flashes li.danger { background-color: #f8d7da; color: #721c24; border: 1px solid #721c24; }
+    </style>
+</head>
+<body>
+
+    <div class="container"> {# <-- Adicione o contêiner aqui #}
+
+        <h1>Atualizar Usuário {{ user.id }}</h1>
+
+        {# Bloco para exibir mensagens flash #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Formulário de Atualização</h2>
+        <form method="POST" action="{{ url_for('update', user_id=user.id) }}">
+            <div>
+                <label for="nome">Nome:</label> {# Use for="nome" #}
+                <input type="text" id="nome" name="nome" value="{{ user.nome }}" required> {# Use user.nome e name="nome" #}
+            </div>
+            <div>
+                <label for="email">Email:</label> {# Use for="email" #}
+                <input type="email" id="email" name="email" value="{{ user.email }}" required> {# Use user.email e name="email" #}
+            </div>
+             <div>
+                <label for="new_password">Nova Senha (opcional):</label> {# Use for="new_password" #}
+                <input type="password" id="new_password" name="new_password"> {# Use name="new_password" #}
+            </div>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+
+        {# Link/Botão para Exclusão #}
+        <h2>Ações</h2>
+         <a href="{{ url_for('delete', user_id=user.id) }}" class="delete-button" onclick="return confirm('Tem certeza que deseja deletar este usuário?');">Excluir Usuário</a>
+
+        {# Links de navegação #}
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('index') }}" class="back-link">Voltar para a lista</a>
+        </div>
+
+    </div> {# <-- Feche o contêiner aqui #}
+
+</body>
+</html>
