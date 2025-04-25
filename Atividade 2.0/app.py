@@ -10,10 +10,10 @@ app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_aqui_mude_isso' 
 
 # --- Configuração do banco de dados MySQL ---
-DB_USER = 'root'
-DB_PASSWORD = '1234567'
-DB_HOST = '127.0.0.1'
-DB_PORT = '3306'
+DB_USER = '_____'
+DB_PASSWORD = '______'
+DB_HOST = '_______'
+DB_PORT = '________'
 DB_NAME = 'flask_crud_db'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
